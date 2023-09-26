@@ -1,57 +1,68 @@
 package options;
 
-import states.MainMenuState;
-import backend.StageData;
-import flixel.addons.transition.FlxTransitionableState;
+#if desktop
+import Discord.DiscordClient;
+#end
+import flash.text.TextField;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import lime.utils.Assets;
+import flixel.FlxSubState;
+import flash.text.TextField;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.util.FlxSave;
+import haxe.Json;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
+import flixel.input.keyboard.FlxKey;
+import flixel.graphics.FlxGraphic;
+import Controls;
+
+using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'#if mobileC, 'Mobile Options'#end];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
-	public static var onPlayState:Bool = false;
-	var tipText:FlxText;
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
 			case 'Note Colors':
-				#if mobileC
+				#if android
 				removeVirtualPad();
 				#end
 				openSubState(new options.NotesSubState());
 			case 'Controls':
-				#if mobileC
+				#if android
 				removeVirtualPad();
 				#end
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
-				#if mobileC
+				#if android
 				removeVirtualPad();
 				#end
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
-				#if mobileC
+				#if android
 				removeVirtualPad();
 				#end
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
-				#if mobileC
+				#if android
 				removeVirtualPad();
 				#end
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
-				/*#if mobileC
-				removeVirtualPad();
-				#end*/
-				FlxTransitionableState.skipNextTransIn = false;
-				FlxTransitionableState.skipNextTransOut = false;
-				MusicBeatState.switchState(new options.NoteOffsetState());
-			#if mobileC
-			case 'Mobile Options':
-				removeVirtualPad();
-				openSubState(new options.MobileOptionsSubState());
-			#end
+				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
 	}
 
@@ -59,26 +70,17 @@ class OptionsState extends MusicBeatState
 	var selectorRight:Alphabet;
 
 	override function create() {
-		#if (desktop && !hl)
+		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
 
 		bg.screenCenter();
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-
-		#if mobileC
-		tipText = new FlxText(150, FlxG.height - 24, 0, 'กด C เพื่อไปที่เมนูควบคุมมือถือ', 16);
-		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
-		tipText.scrollFactor.set();
-		tipText.antialiasing = ClientPrefs.data.antialiasing;
-		add(tipText);
-		#end	
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -96,14 +98,22 @@ class OptionsState extends MusicBeatState
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
 
+		#if android
+		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'กด C เพื่อปรับแต่งการควบคุม Android ของคุณ', 16);
+		tipText.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 2.4;
+		tipText.scrollFactor.set();
+		add(tipText);
+		#end
+			
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		#if mobileC
+		#if android
 		addVirtualPad(UP_DOWN, A_B_C);
-		
+		virtualPad.y = -24;
 		#end
-
+			
 		super.create();
 	}
 
@@ -122,27 +132,22 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		#if mobileC
+		if (controls.BACK) {
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+			MusicBeatState.switchState(new MainMenuState());
+		}
+
+		if (controls.ACCEPT) {
+			openSelectedSubstate(options[curSelected]);
+		}
+		#if android
 		if (virtualPad.buttonC.justPressed) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			openSubState(new mobile.MobileControlsSubState());
+			#if android
+			removeVirtualPad();
+			#end
+			openSubState(new android.AndroidControlsSubState());
 		}
 		#end
-
-		if (controls.BACK) {
-			FlxTransitionableState.skipNextTransOut = false;
-			FlxTransitionableState.skipNextTransIn = false;
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if(onPlayState)
-			{
-				StageData.loadDirectory(PlayState.SONG);
-				LoadingState.loadAndSwitchState(new PlayState());
-				FlxG.sound.music.volume = 0;
-			}
-			else MusicBeatState.switchState(new MainMenuState());
-		}
-		else if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
 	}
 	
 	function changeSelection(change:Int = 0) {
@@ -168,11 +173,5 @@ class OptionsState extends MusicBeatState
 			}
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
-	}
-
-	override function destroy()
-	{
-		ClientPrefs.loadPrefs();
-		super.destroy();
 	}
 }
