@@ -1,105 +1,60 @@
 # Friday Night Funkin' - Psych Engine
-Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
+เดิมทีเอ็นจิ้นใช้กับ [Mind Games Mod](https://gamebanana.com/mods/301107), ตั้งใจที่จะแก้ไขปัญหาต่างๆ ของเวอร์ชันวานิลลา ในขณะเดียวกันก็รักษาแง่มุมการเล่นแบบสบายๆ ไว้ด้วย ยังมุ่งหวังที่จะเป็นทางเลือกที่ง่ายกว่าสำหรับผู้เขียนโค้ดมือใหม่
 
 ## Installation:
-You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
+คุณต้องมี [Haxe เวอร์ชันล่าสุด](https://haxe.org/download/), เอาจริงๆ เลิกใช้ 4.1.5 เถอะครับ มันพลาดอะไรบางอย่าง
 
-open up a Command Prompt/PowerShell or Terminal, type `haxelib install hmm`
+เปิด Command Prompt/PowerShell หรือ Terminal พิมพ์ `haxelib install hmm`
 
-after it finishes, simply type `haxelib run hmm install` in order to install all the needed libraries for *Psych Engine!*
-
-## Customization:
-
-if you wish to disable things like *Lua Scripts* or *Video Cutscenes*, you can read over to `Project.xml`
-
-inside `Project.xml`, you will find several variables to customize Psych Engine to your liking
-
-to start you off, disabling Videos should be simple, simply Delete the line `"VIDEOS_ALLOWED"` or comment it out by wrapping the line in XML-like comments, like this `<!-- YOUR_LINE_HERE -->`
-
-same goes for *Lua Scripts*, comment out or delete the line with `LUA_ALLOWED`, this and other customization options are all available within the `Project.xml` file
-
-## Credits:
-* Shadow Mario - Programmer
-* RiverOaken - Artist
-* Yoshubs - Assistant Programmer
-
-### Special Thanks
-* bbpanzu - Ex-Programmer
-* Yoshubs - New Input System
-* SqirraRNG - Crash Handler and Base code for Chart Editor's Waveform
-* KadeDev - Fixed some cool stuff on Chart Editor and other PRs
-* iFlicky - Composer of Psync and Tea Time, also made the Dialogue Sounds
-* PolybiusProxy - .MP4 Video Loader Library (hxCodec)
-* Keoiki - Note Splash Animations
-* Smokey - Sprite Atlas Support
-* Nebula the Zorua - LUA JIT Fork and some Lua reworks
-_____________________________________
-
-# Features
-
-## Attractive animated dialogue boxes:
-
-![](https://user-images.githubusercontent.com/44785097/127706669-71cd5cdb-5c2a-4ecc-871b-98a276ae8070.gif)
+หลังจากเสร็จสิ้น เพียงพิมพ์ `haxelib run hmm install` เพื่อติดตั้งไลบรารี่ที่จำเป็นทั้งหมดสำหรับ *Psych Engine!*
 
 
-## Mod Support
-* Probably one of the main points of this engine, you can code in .lua files outside of the source code, making your own weeks without even messing with the source!
-* Comes with a Mod Organizing/Disabling Menu.
+## เครดิต:
+* Shadow Mario - โปรแกรมเมอร์
+* RiverOaken - ศิลปิน
+* Yoshubs - ผู้ช่วยโปรแกรมเมอร์
 
+### ขอขอบคุณเป็นพิเศษ
+* bbpanzu - อดีตโปรแกรมเมอร์
+* Yoshubs - ระบบอินพุตใหม่
+* SqirraRNG - ตัวจัดการข้อขัดข้องและ
 
-## Atleast one change to every week:
-### Week 1:
-  * New Dad Left sing sprite
-  * Unused stage lights are now used
-### Week 2:
-  * Both BF and Skid & Pump does "Hey!" animations
-  * Thunders does a quick light flash and zooms the camera in slightly
-  * Added a quick transition/cutscene to Monster
-### Week 3:
-  * BF does "Hey!" during Philly Nice
-  * Blammed has a cool new colors flash during that sick part of the song
-### Week 4:
-  * Better hair physics for Mom/Boyfriend (Maybe even slightly better than Week 7's :eyes:)
-  * Henchmen die during all songs. Yeah :(
-### Week 5:
-  * Bottom Boppers and GF does "Hey!" animations during Cocoa and Eggnog
-  * On Winter Horrorland, GF bops her head slower in some parts of the song.
-### Week 6:
-  * On Thorns, the HUD is hidden during the cutscene
-  * Also there's the Background girls being spooky during the "Hey!" parts of the Instrumental
+## อย่างน้อยหนึ่งการเปลี่ยนแปลงทุกสัปดาห์:
+### สัปดาห์ที่ 1:
+  * พ่อใหม่จากไปร้องเพลงสไปรต์
+  * ตอนนี้ใช้ไฟเวทีที่ไม่ได้ใช้แล้ว
+### สัปดาห์ที่ 2:
+  * ทั้ง BF และ Skid & Pump พูด "เฮ้!" ภาพเคลื่อนไหว
+  * ฟ้าร้องทำ qu
+### สัปดาห์ที่ 6:
+  * บน Thorns นั้น HUD จะถูกซ่อนไว้ระหว่างฉากคัตซีน
+  * นอกจากนี้ยังมีสาว ๆ เบื้องหลังที่น่ากลัวในช่วง "เฮ้!" ส่วนของเครื่องดนตรี
 
-## Cool new Chart Editor changes and countless bug fixes
+## การเปลี่ยนแปลงตัวแก้ไขแผนภูมิใหม่ที่ยอดเยี่ยมและการแก้ไขข้อบกพร่องนับไม่ถ้วน
 ![](https://github.com/ShadowMario/FNF-PsychEngine/blob/main/docs/img/chart.png?raw=true)
-* You can now chart "Event" notes, which are bookmarks that trigger specific actions that usually were hardcoded on the vanilla version of the game.
-* Your song's BPM can now have decimal values
-* You can manually adjust a Note's strum time if you're really going for milisecond precision
-* You can change a note's type on the Editor, it comes with two example types:
-  * Alt Animation: Forces an alt animation to play, useful for songs like Ugh/Stress
-  * Hey: Forces a "Hey" animation instead of the base Sing animation, if Boyfriend hits this note, Girlfriend will do a "Hey!" too.
+* ตอนนี้คุณสามารถสร้างแผนภูมิบันทึก "กิจกรรม" ซึ่งเป็นที่คั่นหน้าได้แล้ว
 
-## Multiple editors to assist you in making your own Mod
-![Screenshot_3](https://user-images.githubusercontent.com/44785097/144629914-1fe55999-2f18-4cc1-bc70-afe616d74ae5.png)
-* Working both for Source code modding and Downloaded builds!
+## บรรณาธิการหลายคนเพื่อช่วยคุณในการสร้าง Mod ของคุณเอง
+![สกรีนช็อต_3](https://user-images.githubusercontent.com/44785097/144629914-1fe55999-2f18-4cc1-bc70-afe616d74ae5.png)
+* ทำงานทั้งสำหรับ Sourcec
 
-## Story mode menu rework:
+## การปรับปรุงเมนูโหมดเนื้อเรื่อง:
 ![](https://i.imgur.com/UB2EKpV.png)
-* Added a different BG to every song (less Tutorial)
-* All menu characters are now in individual spritesheets, makes modding it easier.
+* เพิ่ม BG ที่แตกต่างกันในทุกเพลง (บทช่วยสอนน้อยลง)
+* ตัวละครในเมนูทั้งหมดอยู่ในภาพต่อเรียงแล้ว ทำให้การดัดแปลงง่ายขึ้น
 
-## Credits menu
-![Screenshot_1](https://user-images.githubusercontent.com/44785097/144632635-f263fb22-b879-4d6b-96d6-865e9562b907.png)
-* You can add a head icon, name, description and a Redirect link for when the player presses Enter while the item is currently selected.
+## เมนูเครดิต
+![สกรีนช็อต_1](https://user-images.githubusercontent.com/44785097/144632635-f263fb22-b879-4d6b-96d6-865e9562b907.png)
+* คุณสามารถเพิ่มไอคอนส่วนหัว ชื่อ คำอธิบาย และลิงก์เปลี่ยนเส้นทางได้ 
 
-## Awards/Achievements
-* The engine comes with 16 example achievements that you can mess with and learn how it works (Check Achievements.hx and search for "checkForAchievement" on PlayState.hx)
+## รางวัล/ความสำเร็จ
+* เอ็นจิ้นมาพร้อมกับความสำเร็จตัวอย่าง 16 รายการที่คุณสามารถยุ่งและเรียนรู้วิธีการทำงาน (ตรวจสอบ Achievements.hx และค้นหา "checkForAchievement" บน PlayState.hx)
 
-## Options menu:
-* You can change Note colors, Delay and Combo Offset, Controls and Preferences there.
- * On Preferences you can toggle Downscroll, Middlescroll, Anti-Aliasing, Framerate, Low Quality, Note Splashes, Flashing Lights, etc.
+## รางวัล/ความสำเร็จ
+* เอ็นจิ้นมาพร้อมกับความสำเร็จตัวอย่าง 16 รายการที่คุณสามารถยุ่งและเรียนรู้วิธีการทำงาน (ตรวจสอบ Achievements.hx และค้นหา "checkForAchievement" บน PlayState.hx)
 
-## Other gameplay features:
-* When the enemy hits a note, their strum note also glows.
-* Lag doesn't impact the camera movement and player icon scaling anymore.
-* Some stuff based on Week 7's changes has been put in (Background colors on Freeplay, Note splashes)
-* You can reset your Score on Freeplay/Story Mode by pressing Reset button.
-* You can listen to a song or adjust Scroll Speed/Damage taken/etc. on Freeplay by pressing Space.
+
+## คุณสมบัติการเล่นเกมอื่น ๆ :
+* เมื่อศัตรูโดนโน้ต ดีดโน้ตของพวกมันก็จะเรืองแสงเช่นกัน
+* Lag ไม่ส่งผลต่อการเคลื่อนไหวของกล้องและการปรับขนาดไอคอนผู้เล่นอีกต่อไป
+* บางสิ่งขึ้นอยู่กับการเปลี่ยนแปลงของสัปดาห์ที่ 7 
